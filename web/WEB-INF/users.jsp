@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link type="text/css" rel="stylesheet" href="CSS/style.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -47,15 +48,15 @@
                     </select>
                 </td>    
             </tr>
-
+<br>
 
 
             <input type="hidden" name="action" value="save">
             <input type="submit" value="Save">
         </form>
-        <div>
+        <p>
             ${message}
-        </div>
+        <p>
 
         <h1>Manage User</h1>
 
@@ -109,7 +110,7 @@
          
         </table>
         <h1>Edit User</h1>
-        <p>${editMessage}</p>
+        <p>${editMessage}<p>
         <form action="?action=update" method="post">
 
 
@@ -170,8 +171,7 @@
            
           <input type="hidden" name="saveChange" value="${user.email}">
         </form>
-             <br> 
-               
+
   <form action="?action=reset"  method="post">
       <input type="submit" value="Cancel">
    <input type="hidden" name="action" value="reset">
