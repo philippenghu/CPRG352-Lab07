@@ -9,7 +9,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Add User</h1>
+        <h1>User management<h1>
+        <h2>Add User</h2>
         <table>
             <form action="user" method="post">
                 <tr>
@@ -58,13 +59,10 @@
         <p>
             ${message}
         <p>
-
-        <h1>Manage User</h1>
-
-        <table>
+        <h2>Manage User</h2>
+       <table>
             <form action="user" method="post">
                 <tr>
-
                     <th>
                         Active</th>
                     <th>First Name</th>
@@ -100,22 +98,17 @@
                         </td>
                         <td>
                             <form action="?action=delete" method="post">
-
                                 <input type="hidden" name="deleteUser" value="${user.email}">
                                 <input type="submit" name="action" value="Delete">
-
                             </form>
                         </td>
                     </tr> 
                 </c:forEach>
-
         </table>
-        <h1>Edit User</h1>
+        <h2>Edit User</h2>
         <p>${editMessage}<p>
         <table>
             <form action="?action=update" method="post">
-
-
                 <tr>
                     <td>
                         <c:choose>
@@ -131,15 +124,21 @@
                 <br>
                 <tr>
                     <td>
-                        <input type="text" name="firstnameEdit" value="${editUser.firstname}"><br>
+                        <input type="text" name="firstnameEdit" placeholder="First Name" value="${editUser.firstname}"><br>
                     </td>    
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="lastnameEdit" value="${editUser.lastname}"><br>
+                        <input type="text" name="lastnameEdit" placeholder="Last Name" value="${editUser.lastname}"><br>
                     </td>    
                 </tr>
+               
                 <tr>
+                    <td>
+                        <input type="text" name="passwordEdit" placeholder="Password" value="${editUser.password}"><br>
+                    </td>    
+                </tr>
+                 <tr>
                     <td>
                         <c:if test="${editUser.roleID==1}">
                             <select name="editRole">
@@ -166,26 +165,17 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="passwordEdit" value="${editUser.password}"><br>
-                    </td>    
-                </tr>
-                <tr>
-                    <td>
                         <input type="submit" value="Update">
                     </td>    
                 </tr>
                 <input type="hidden" name="saveChange" value="${user.email}">
-
-
             </form>
-
             <form action="?action=reset"  method="post">
                 <tr>
                     <td>
                         <input type="submit" value="Cancel">
                     </td>    
                 </tr>
-
                 <input type="hidden" name="action" value="reset">
             </form>
         </table>

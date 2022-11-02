@@ -17,9 +17,7 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         displayAll(request, response);
-
         getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
         return;
     }
@@ -28,7 +26,6 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         String action = request.getParameter("action");
         String email = "";
         boolean active = false;
@@ -45,7 +42,6 @@ public class UserServlet extends HttpServlet {
         RoleService roleService = new RoleService();
         try {
             users = userService.getAll();
-
             if (action != null) {
                 switch (action) {
                     case "save":
@@ -56,43 +52,42 @@ public class UserServlet extends HttpServlet {
                         password = request.getParameter("password");
                         roleID = Integer.parseInt(request.getParameter("role"));
                         roleName = roleService.getRoleName(roleID);
+                        String message;
                         if (email.equals(null) || email.equals("")
                                 || firstname.equals(null) || firstname.equals("")
                                 || lastname.equals(null) || lastname.equals("")
-                                || password.equals(null) || password.equals("")
-                                ) {
-                            String message = "Please correctly enter all the information.";
+                                || password.equals(null) || password.equals("")) {
+                            message = "Please correctly enter all the information.";
                             request.setAttribute("message", message);
-                            
-                        }
-                        else if (!users.isEmpty()) {
-                            boolean duplicated=false;
+
+                        } else if (!users.isEmpty()) {
+                            boolean duplicated = false;
                             for (int i = 0; i < users.size(); i++) {
                                 if (email.equals(users.get(i).getEmail())) {
-                                    String message = "Email duplicated, fail to add user.";
+                                    message = "Email duplicated, fail to add user.";
                                     request.setAttribute("message", message);
-                                    duplicated=true;
+                                    duplicated = true;
                                 }
                             }
-                            if (duplicated==false){
+                            if (duplicated == false) {
+                                user = new User(email, active, firstname, lastname, password, roleID, roleName);
+                                userService.insert(user);
+                                message = "User " + email + " successfully added";
+                                request.setAttribute("message", message);
+                            }
+                        } else if (users.isEmpty()) {
                             user = new User(email, active, firstname, lastname, password, roleID, roleName);
                             userService.insert(user);
-                            String message = "User " + email + " successfully added";
+                            message = "User " + email + " successfully added";
                             request.setAttribute("message", message);
+
                         }
-                        }
-                        else if (users.isEmpty()){
-                            user = new User(email, active, firstname, lastname, password, roleID, roleName);
-                            userService.insert(user);
-                            editMessage = "User " + email + " successfully added";
-                            request.setAttribute("message", editMessage);
-                            
-                        }   break;
+                        break;
                     case "showEdit":
                         email = (String) request.getParameter("editUser");
                         editUser = userService.getUser(email);
                         request.setAttribute("editUser", editUser);
-                         session.setAttribute("editUser", editUser);
+                        session.setAttribute("editUser", editUser);
                         break;
                     case "delete":
                         email = request.getParameter("deleteUser");
@@ -106,8 +101,9 @@ public class UserServlet extends HttpServlet {
                         request.setAttribute("editUser", user);
                         break;
                     case "update":
-                        user= (User)session.getAttribute("editUser");
-                        email = (String)user.getEmail();;
+                        user = (User) session.getAttribute("editUser");
+                        email = (String) user.getEmail();
+                        ;
                         active = request.getParameter("activeEdit") != null;
                         firstname = request.getParameter("firstnameEdit");
                         lastname = request.getParameter("lastnameEdit");
@@ -116,19 +112,19 @@ public class UserServlet extends HttpServlet {
                         roleName = roleService.getRoleName(roleID);
                         if (firstname == null || firstname.equals("")
                                 || lastname == null || lastname.equals("")
-                                || password == null || password.equals("")
-                                ) {
+                                || password == null || password.equals("")) {
                             editMessage = "Please correctly enter all the information.";
                             request.setAttribute("editMessage", editMessage);
-                            
-                        }
-                        else{
+
+                        } else {
                             User editedUser = new User(email, active, firstname,
                                     lastname, password, roleID, roleName);
                             userService.updateUser(editedUser);
+
                             editMessage = "User " + email + " Updated";
                             request.setAttribute("editMessage", editMessage);
-                        }   break;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -136,29 +132,23 @@ public class UserServlet extends HttpServlet {
         } catch (Exception ex) {
             String message = "Sorry, something went wrong.";
             request.setAttribute("message", message);
-             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-       displayAll(request, response);
-getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
-            return;
+        displayAll(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, response);
+        return;
     }
-    
-    private void displayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
+
+    private void displayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = new UserService();
-       ArrayList<User> users ;
-        try { 
+        ArrayList<User> users;
+        try {
             users = userService.getAll();
             request.setAttribute("users", users);
-            
-                    }
-        
-        catch (Exception ex) {
-          
+        } catch (Exception ex) {
             String message = "Sorry, displaying exception.";
             request.setAttribute("message", message);
-             Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
-            
+            Logger.getLogger(UserServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-    }
+}
