@@ -4,10 +4,10 @@
         max-width: 500px;
         padding: 20px;
         margin: auto;
- background-color: antiquewhite;
+        background-color: antiquewhite;
     }
 
-   
+
 
     h1 {
         text-align: center;
@@ -17,30 +17,39 @@
         border-radius: 5px;
     }
     tr{
-         background-color:  darkgray;
-         color: white
+        background-color:  darkgray;
+        color: white;
+              text-align: center;
     }
-     th{
-         background-color:  black;
-         color: white
+    tr{
+        
+    }
+    th{
+        background-color:  black;
+        color: white
     }
     table {
         padding: 10px;
- border: 2px solid black;
+        border: 2px solid black;
+        margin: auto;
+        
     }
     select{
         margin-top: 3px;
         padding: 5px;
         width: 200px;
     }
+
     input[type="text"],
-input[type="password"],
     input[type="email"]
     {
         margin-top: 3px;
         padding: 5px;
         width: 200px;
     }
+
+   
+
 
     div {
         border: 3px solid black;
@@ -53,9 +62,9 @@ input[type="password"],
         padding: 5px;
     }
 
-   
 
-    
+
+
 
     input[type="submit"] {
         position: relative;     
@@ -65,19 +74,19 @@ input[type="password"],
         border: 2px solid black;
         padding: 5px;
         border-radius: 5px;
-        margin: 5px
+        margin: auto
     }
-    
+
     p{
         background-color: whitesmoke;
         border: 2px black;
         color:red;
         font-size: larger;
         font-weight: bold;
-        
+
     }
-    
- input[type="submit"]:hover {
+
+    input[type="submit"]:hover {
         width: 70px;
         height: 30px;
         font-weight: bolder;
@@ -92,12 +101,12 @@ input[type="password"],
         background-color: #242424;
         box-shadow: 0 4px #666;
         transform: translateY(3px);
-        
+
     }
 
-   
 
-  
 
- 
+
+
+
 }

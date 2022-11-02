@@ -143,13 +143,10 @@ getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, 
             return;
     }
     
-    private void displayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-      
+    private void displayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {    
         UserService userService = new UserService();
        ArrayList<User> users ;
-
-        try {
-           
+        try { 
             users = userService.getAll();
             request.setAttribute("users", users);
             
@@ -165,4 +162,3 @@ getServletContext().getRequestDispatcher("/WEB-INF/users.jsp").forward(request, 
 
     }
     }
-
